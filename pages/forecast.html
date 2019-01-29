@@ -1,0 +1,39 @@
+<h4>Forecast for {{ forecast.cityName }}</h4>
+<small>intervals are 3 hours long</small>
+<span class="pull-right"><a href="#/">Back to Search</a></span>
+<hr />
+Days: <a href="#/forecast/8" ng-class="{'bg-primary' : count == 8}">1</a> |
+<a href="#/forecast/16" ng-class="{'bg-primary' : count == 16}">2</a> |
+<a href="#/forecast/40" ng-class="{'bg-primary' : count == 40}">5</a>
+<div class="btn-group pull-right" role="group" aria-label="Temperature unit">
+  <button
+    type="button"
+    class="btn btn-default"
+    ng-class="{'btn-primary' : forecast.celsius}"
+    ng-click="forecast.toggleTemperatureUnit()"
+    ng-disabled="forecast.celsius"
+  >
+    Celsius
+  </button>
+  <button
+    type="button"
+    class="btn btn-default"
+    ng-class="{'btn-primary' : !forecast.celsius}"
+    ng-click="forecast.toggleTemperatureUnit()"
+    ng-disabled="!forecast.celsius"
+  >
+    Fahrenheit
+  </button>
+</div>
+<hr />
+
+<!-- <pre>{{ w | json }}</pre> -->
+<div class="row">
+  <forecast-result
+    ng-repeat="w in forecast.weatherResult.list"
+    weather-res="w"
+    celsius="forecast.celsius"
+    toggle-temperature-unit="forecast.toggleTemperatureUnit()"
+    date-format="{{ forecast.dateFormat }}"
+  ></forecast-result>
+</div>
