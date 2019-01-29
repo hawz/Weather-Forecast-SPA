@@ -2,11 +2,12 @@
 (function() {
   angular.module("weatherApp", [
     "app.routes",
-    "app.providers.weatherConfig",
+    "app.config.weather",
     "app.controllers.home",
     "app.controllers.forecast",
     "app.directives.forecastResult",
     "app.filters",
-    "app.services.cityService"
+    "app.services.cityService",
+    "app.factories.weather"
   ]);
 })();

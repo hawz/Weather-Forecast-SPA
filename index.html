@@ -35,7 +35,8 @@
     <script src="./directives/forecastResult.directive.js"></script>
     <script src="./filters/app.filters.js"></script>
     <script src="./services/city.service.js"></script>
-    <script src="./services/weatherConfig.provider.js"></script>
+    <script src="./services/weather.factory.js"></script>
+    <script src="./services/weather.config.js"></script>
   </head>
   <body>
     <header>
@@ -54,6 +55,6 @@
       </nav>
     </header>
 
-    <div class="container"><ng-view></ng-view></div>
+    <div class="container"><ng-view>Loading...</ng-view></div>
   </body>
 </html>

@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  angular.module('app.providers.weatherConfig', [])
+  angular.module('app.config.weather', [])
   .service('WeatherConfigProvider', WeatherConfigProvider);
 
   function WeatherConfigProvider() {

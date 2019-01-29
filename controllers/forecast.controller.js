@@ -5,44 +5,46 @@
     .controller("ForecastController", ForecastController);
 
   ForecastController.$inject = [
-    "$scope",
+    "$routeParams",
     "CityService",
-    "$resource",
     "WeatherConfigProvider",
     "toCelsiusFilter",
     "toFahrenheitFilter",
-    "$routeParams"
+    "WeatherFactory"
   ];
 
   function ForecastController(
-    $scope,
+    $routeParams,
     CityService,
-    $resource,
     WeatherConfigProvider,
     toCelsiusFilter,
     toFahrenheitFilter,
-    $routeParams
+    WeatherFactory
   ) {
     var vm = this;
-    vm.celsius = true;
-    vm.dateFormat = "MMM d, y HH:mm";
-    vm.cityName = CityService.getCityName();
-    vm.count = $routeParams.count || 2;
-    vm.weatherAPI = $resource(
-      "http://api.openweathermap.org/data/2.5/forecast",
-      {
-        callback: "JSON_CALLBACK"
-      },
-      {
-        get: { method: "JSONP" }
-      }
-    );
+    activate();
 
-    vm.weatherResult = vm.weatherAPI.get({
-      q: vm.cityName,
-      cnt: vm.count,
-      appid: WeatherConfigProvider.getAppId()
-    });
+    function activate() {
+      vm.celsius = true;
+      vm.dateFormat = "MMM d, y HH:mm";
+      vm.cityName = CityService.getCityName();
+      vm.count = $routeParams.count || 2;
+      getWeatherData();
+    }
+
+    function getWeatherData() {
+      WeatherFactory.get({
+        q: vm.cityName,
+        cnt: vm.count,
+        appid: WeatherConfigProvider.getAppId()
+      }).$promise
+      .then(
+        (res) => vm.weatherResult = res
+      )
+      .catch(
+        (error) => console.error(error)
+      );
+    }
 
     vm.toggleTemperatureUnit = function() {
       vm.celsius = !vm.celsius;

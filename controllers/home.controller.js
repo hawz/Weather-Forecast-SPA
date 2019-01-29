@@ -8,7 +8,13 @@
 
   function HomeController(CityService, $scope, $location) {
     var vm = this;
-    vm.cityName = CityService.getCityName();
+    vm.cityName = '';
+
+    activate();
+
+    function activate() {
+      vm.cityName = CityService.getCityName();
+    }
 
     $scope.$watch("home.cityName", function() {
       CityService.setCityName(vm.cityName);
